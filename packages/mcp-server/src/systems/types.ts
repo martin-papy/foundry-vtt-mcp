@@ -11,7 +11,15 @@ import { z } from 'zod';
  * Supported game system identifiers
  * Extend this type when adding new systems
  */
-export type SystemId = 'dnd5e' | 'pf2e' | 'dsa5' | 'cosmere-rpg' | 'wfrp4e' | 'mgt2e' | 'other';
+export type SystemId =
+  | 'dnd5e'
+  | 'pf2e'
+  | 'dsa5'
+  | 'cosmere-rpg'
+  | 'wfrp4e'
+  | 'mgt2e'
+  | 'coc7'
+  | 'other';
 
 /**
  * System metadata returned by adapters
@@ -339,6 +347,34 @@ export interface MGT2eCreatureIndex extends SystemCreatureIndex {
 }
 
 /**
+ * Call of Cthulhu 7e specific creature index structure.
+ *
+ * Character-focused adapter: the creature index is intentionally lightweight
+ * (Call of Cthulhu has no Challenge Rating / level metric).
+ */
+export interface CoC7CreatureIndex extends SystemCreatureIndex {
+  system: 'coc7';
+  systemData: {
+    /** Free-text type from the NPC/creature sheet ("Human", "Mythos servitor") */
+    creatureType?: string;
+    occupation?: string;
+    /** Maximum hit points */
+    hitPoints?: number;
+    /** Maximum magic points */
+    magicPoints?: number;
+    build?: number;
+    /** Damage bonus as the system stores it ("-1", "0", "1D4") */
+    damageBonus?: string;
+    /** Sanity loss for encountering it, as "passed/failed" ("0/1D6") */
+    sanityLoss?: string;
+    /** Owns at least one spell item */
+    hasSpells: boolean;
+    /** Characteristic values keyed by lower-case abbreviation (str, con, ...) */
+    characteristics?: Record<string, number>;
+  };
+}
+
+/**
  * Generic creature index for unsupported systems
  */
 export interface GenericCreatureIndex extends SystemCreatureIndex {
@@ -356,4 +392,5 @@ export type AnyCreatureIndex =
   | CosmereRpgCreatureIndex
   | WFRP4eCreatureIndex
   | MGT2eCreatureIndex
+  | CoC7CreatureIndex
   | GenericCreatureIndex;
