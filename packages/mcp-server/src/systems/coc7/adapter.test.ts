@@ -376,7 +376,7 @@ describe('CoC7Adapter.extractCharacterStats (NPC, source data)', () => {
     expect(stats.weapons).toEqual([
       {
         name: 'Ritual Knife',
-        skill: 'fighting (brawl)',
+        skill: 'Fighting (Brawl)',
         skillValue: 55,
         damage: '1D4+2',
         addsDamageBonus: 'full',
@@ -545,6 +545,36 @@ describe('CoC7Adapter.extractCharacterStats (unrolled NPC)', () => {
     };
     expect(new CoC7Adapter().extractCharacterStats(armed).weapons).toEqual([
       { name: 'Pistol', damage: '1D8' },
+    ]);
+  });
+
+  it('names the linked skill, not the name stored on the weapon, when they differ', () => {
+    // The system rolls against the skill linked by id; the stored name is a
+    // copy that goes stale when the link is changed on the sheet.
+    const fighter = {
+      name: 'Bodyguard',
+      type: 'npc',
+      system: {},
+      items: [
+        {
+          id: 'skillKungFu00001',
+          type: 'skill',
+          name: 'Fighting (Kung Fu)',
+          system: { adjustments: { base: 0, personal: 70 } },
+        },
+        {
+          id: 'w1',
+          type: 'weapon',
+          name: 'Kick',
+          system: {
+            skill: { main: { name: 'Brawl', id: 'skillKungFu00001' } },
+            range: { normal: { damage: '1D6' } },
+          },
+        },
+      ],
+    };
+    expect(new CoC7Adapter().extractCharacterStats(fighter).weapons).toEqual([
+      { name: 'Kick', skill: 'Fighting (Kung Fu)', skillValue: 70, damage: '1D6' },
     ]);
   });
 });

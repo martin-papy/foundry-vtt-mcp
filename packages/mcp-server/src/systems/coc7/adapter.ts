@@ -450,8 +450,10 @@ export class CoC7Adapter implements SystemAdapter {
         const weaponSystem = weapon.system || {};
         const storedSkillName = this.readableSkillName(weaponSystem.skill?.main?.name);
         const skill = this.findWeaponSkill(skills, weaponSystem.skill?.main?.id, storedSkillName);
-        // A weapon may link to its skill by id alone, storing no name.
-        const skillName = storedSkillName ?? toText(skill?.name);
+        // The owned skill's own name wins: the system rolls against the skill
+        // linked by id, and the name stored on the weapon is a copy that may
+        // be missing, abbreviated ("Brawl") or left over from an earlier link.
+        const skillName = toText(skill?.name) ?? storedSkillName;
         const usedSkillValue = skill ? skillValue(skill.system) : undefined;
         const damage = toText(weaponSystem.range?.normal?.damage);
         const range = toText(weaponSystem.range?.normal?.value);
