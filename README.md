@@ -1,6 +1,6 @@
 # Foundry VTT MCP Bridge
 
-Connect Foundry VTT to Claude Desktop for AI-powered campaign management through the Model Context Protocol (MCP). It currently supports Dungeons and Dragons Fifth Edition, Pathfinder Second Edition, Das Schwarze Augen Fifth Edition, Cosmere RPG System, Warhammer Fantasy Roleplay 4th Edition, & Mongoose Traveller 2nd Edition. The majority of MCP tools are system agnostic or have features that are aware of the system it is working with, excluding some DSA 5 specific tools.
+Connect Foundry VTT to Claude Desktop for AI-powered campaign management through the Model Context Protocol (MCP). It currently supports Dungeons and Dragons Fifth Edition, Pathfinder Second Edition, Das Schwarze Augen Fifth Edition, Cosmere RPG System, Warhammer Fantasy Roleplay 4th Edition, Mongoose Traveller 2nd Edition, & Call of Cthulhu 7th Edition. The majority of MCP tools are system agnostic or have features that are aware of the system it is working with, excluding some DSA 5 specific tools.
 
 ## Overview
 
@@ -117,6 +117,7 @@ Once connected, ask Claude Desktop:
 - **D&D 5e NPC Creation Suite**: Build complete NPCs from prompts — stat block, attacks, saves, auras, and spellcasting
 - **Mongoose Traveller 2e (mgt2e) Support**: Full actor lifecycle — create/update/delete travellers, NPCs, creatures, and spacecraft with skill shorthand normalisation; creature compendium index with characteristic DMs; weapon-trait enum reference
 - **WFRP4e Support**: Character reading plus editing — update characteristics, wounds, skills and careers, and add or remove items on existing actors
+- **Call of Cthulhu 7e (CoC7) Support**: Character reading for investigators, NPCs and creatures — characteristics, hit points, magic points, sanity, luck, damage bonus and build, skills, weapons and spells; `manage-actors` describes the CoC7 actor schema
 - **Generic Actor CRUD**: `manage-actors` creates, updates, and deletes actors of any type on any system; also updates and deletes embedded items
 - **Character Management**: Access stats, abilities, inventory, and detailed entity information
 - **Token Manipulation**: Move, update, delete tokens and manage status conditions
